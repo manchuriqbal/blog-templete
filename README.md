@@ -30,28 +30,29 @@ This is a simple blog-style Laravel application featuring basic user authenticat
 
 ##  Blade File Structure
 
+```txt
 resources/views/
 ├── auth/
-│ ├── login.blade.php
-│ └── register.blade.php
+│   ├── login.blade.php
+│   └── register.blade.php
 ├── layouts/
-│ └── app.blade.php
+│   └── app.blade.php
 ├── pages/
-│ └── home/
-│   └── index.blade.php
-│ └── about/
-│   └── index.blade.php
-│ └── Post/
-│   └── index.blade.php
-│ └── category/
-│   └── index.blade.php
-│ └── contact/
-│   └── index.blade.php
-│ └── profile/
-│   └── index.blade.php
+│   ├── home/
+│   │   └── index.blade.php
+│   ├── about/
+│   │   └── index.blade.php
+│   ├── post/
+│   │   └── index.blade.php
+│   ├── category/
+│   │   └── index.blade.php
+│   ├── contact/
+│   │   └── index.blade.php
+│   └── profile/
+│       └── index.blade.php
 ├── partial/
-│ ├── nav.blade.php
-| └── nav.blade.php
+│   └── nav.blade.php
+```
 
 
 ---
