@@ -20,6 +20,7 @@
     @include("partials.footer")
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="{{ asset('assets/js/script-2.js') }}"> </script>
 </body>
 
 </html>

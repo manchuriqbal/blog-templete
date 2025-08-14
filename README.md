@@ -1,11 +1,21 @@
 # Laravel Blog Project
 
-This is a simple blog-style Laravel application featuring basic user authentication, blog categories, profile management, and standard pages like About and Contact. It follows a clean MVC structure and Blade templating for frontend layout.
+This is a simple blog-style Laravel application featuring basic Blade templating for Admin Dashboard Layout and frontend layout.
 
 ---
 
+
 ## Features
 
+#### Admin Dashboard
+- Layouts and Partials(sidebar-menu, header, scripts) 
+- Static Pages: Dashboard
+- User Authentication (Login & Register)
+- Post (CRUD)
+- Cetegory (CRUD)
+- Clean and modular MVC structure
+
+#### Frontend
 - User Authentication (Login & Register)
 - Blog Categories & Posts
 - User Profile Management
@@ -16,13 +26,21 @@ This is a simple blog-style Laravel application featuring basic user authenticat
 ---
 
 ##  Controllers
+#### Admin
+- `Admin/DashboardController`
+- `Admin/CategoryController`
+- `Admin/PostController`
 
+#### Auth
+- `LoginController`
+- `RegisterController`
+
+#### 
+Frontend
 - `HomeController`
 - `CategoryController`
 - `BlogController`
 - `ProfileController`
-- `LoginController`
-- `RegisterController`
 - `AboutController`
 - `ContactController`
 
