@@ -9,11 +9,11 @@ class ProfileController extends Controller
 {
     public function me()
     {
-        return view('admin.pages.profile.show');
+        return view('admin.profile.show');
     }
     public function edit()
     {
-        return view('admin.pages.profile.edit');
+        return view('admin.profile.edit');
     }
 
 }

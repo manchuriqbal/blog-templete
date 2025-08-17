@@ -1,8 +1,8 @@
-@extends('layouts.frontend.app')
-@section('title', 'Register')
+@extends('layouts.admin.app')
+
+@section('title', 'Edit Profile')
 
 @section('content')
-    <!-- Main Content -->
     <main class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="auth-container max-w-md w-full space-y-6 p-10 bg-white rounded-xl shadow-lg">
             <div class="text-center">
@@ -107,13 +107,7 @@
                     </button>
                 </div>
             </form>
-            <!-- Login Link -->
-            <div class="mt-6 text-center">
-                <p class="text-sm text-gray-600">
-                    Already have an account?
-                    <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">Sign in</a>
-                </p>
-            </div>
+
         </div>
     </main>
 @endsection
