@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('content');
             $table->string('image')->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->foreignId('category_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });

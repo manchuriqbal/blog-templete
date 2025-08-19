@@ -22,7 +22,7 @@ class PostFactory extends Factory
             "title"=> $title,
             "slug" => Str::slug($title),
             "content" => $this->faker->paragraph(5, true),
-            "image" => $this->faker->imageUrl(640, 480, 'posts', true),
+            "image" => "https://picsum.photos/640/480",
             "user_id" => \App\Models\User::inRandomOrder()->first()->id ?? 1,
             "category_id" => \App\Models\Category::inRandomOrder()->first()->id ?? 1,
             

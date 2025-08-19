@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->text('description')->nullable();
             $table->timestamps();
         });
