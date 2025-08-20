@@ -25,25 +25,31 @@
             <h2 class="text-3xl font-bold mb-8 text-gray-800 border-b pb-2">Featured Posts</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Featured Post 1 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img src="https://placehold.co/480x200/png" alt="Web Development" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center text-sm text-gray-500 mb-2">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">Web Development</span>
-                            <span class="mx-2">•</span>
-                            <span>May 15, 2023</span>
-                            <span class="mx-2">•</span>
-                            <span>5 min read</span>
+                @foreach ($featuredPosts as $post)
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                        @if (Str::startsWith($post->image, ['https://']))
+                            <img src="{{ $post->image }}" alt="Web Development" class="w-full h-48 object-cover">
+                        @else
+                            <img src="{{ asset('storage/' . $post->image) }}" alt="Web Development"
+                                class="w-full h-48 object-cover">
+                        @endif
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span
+                                    class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">{{ $post->category->name }}</span>
+                                <span class="mx-2">•</span>
+                                <span>{{ $post->created_at->diffForHumans() }}</span>
+                                <span class="mx-2">•</span>
+                                <span>5 min read</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">{{ $post->title }}</h3>
+                            <p class="text-gray-600 mb-4">{{ Str::limit($post->content, 150) }}.</p>
+                            <a href="{{ route('post.show', $post->slug) }}"
+                                class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">The Future of Web Development in 2023</h3>
-                        <p class="text-gray-600 mb-4">Explore the latest trends and technologies shaping the future of
-                            web development this year.</p>
-                        <a href="{{ route('blog.show') }}"
-                            class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
                     </div>
-                </div>
-
-                <!-- Featured Post 2 -->
+                @endforeach
+                {{-- <!-- Featured Post 2 -->
                 <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
                     <img src="https://placehold.co/480x200/png" alt="Artificial Intelligence"
                         class="w-full h-48 object-cover">
@@ -82,7 +88,7 @@
                         <a href="{{ route('blog.show') }}"
                             class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -94,26 +100,37 @@
             <h2 class="text-3xl font-bold mb-8 text-gray-800 border-b pb-2">Recent Articles</h2>
             <div class="space-y-8">
                 <!-- Recent Post 1 -->
-                <article
-                    class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition flex flex-col md:flex-row">
-                    <img src="https://placehold.co/480x200/png" alt="React 18" class="md:w-1/3 h-48 md:h-auto object-cover">
-                    <div class="p-6 md:w-2/3">
-                        <div class="flex items-center text-sm text-gray-500 mb-2">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">Web Development</span>
-                            <span class="mx-2">•</span>
-                            <span>July 5, 2023</span>
-                            <span class="mx-2">•</span>
-                            <span>7 min read</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">React 18: What's New and Improved</h3>
-                        <p class="text-gray-600 mb-4">Discover the exciting new features and improvements in React 18
-                            and how they can benefit your projects.</p>
-                        <a href="{{ route('blog.show') }}"
-                            class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
-                    </div>
-                </article>
+                @foreach ($recentPosts as $post)
 
-                <!-- Recent Post 2 -->
+                    <article
+                        class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition flex flex-col md:flex-row">
+                        @if (Str::startsWith($post->image, ['https://']))
+                            <img src="{{ $post->image }}" alt="React 18" class="w-1/3 md:w-1/3 h-48 md:h-auto object-cover">
+
+                        @else
+                            <img src="{{ asset('storage/' . $post->image) }}" alt="React 18"
+                                class="w-1/3 md:w-1/3 h-48 md:h-auto object-cover">
+                        @endif
+                        {{-- <img src="https://placehold.co/480x200/png" alt="React 18"
+                            class="md:w-1/3 h-48 md:h-auto object-cover"> --}}
+                        <div class="p-6 md:w-2/3">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span
+                                    class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">{{ $post->category->name }}</span>
+                                <span class="mx-2">•</span>
+                                <span>{{$post->created_at->diffForHumans()}}</span>
+                                <span class="mx-2">•</span>
+                                <span>7 min read</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">{{ $post->title }}</h3>
+                            <p class="text-gray-600 mb-4">{{Str::limit($post->content, 200, '...')}}</p>
+                            <a href="{{ route('post.show', $post->slug) }}"
+                                class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
+                        </div>
+                    </article>
+                @endforeach
+
+                {{-- <!-- Recent Post 2 -->
                 <article
                     class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition flex flex-col md:flex-row">
                     <img src="https://placehold.co/480x200/png" alt="Cybersecurity"
@@ -129,8 +146,7 @@
                         <h3 class="text-xl font-bold mb-2 text-gray-800">Cybersecurity Essentials for Developers</h3>
                         <p class="text-gray-600 mb-4">Key security practices every developer should implement to protect
                             their applications and users.</p>
-                        <a href="{{ route('blog.show') }}"
-                            class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
+                        <a href="" class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
                     </div>
                 </article>
 
@@ -150,21 +166,22 @@
                         <h3 class="text-xl font-bold mb-2 text-gray-800">The Rise of Low-Code Development Platforms</h3>
                         <p class="text-gray-600 mb-4">How low-code platforms are changing the software development
                             landscape and who should use them.</p>
-                        <a href="{{ route('blog.show') }}"
-                            class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
+                        <a href="" class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
                     </div>
-                </article>
+                </article> --}}
             </div>
 
             <div class="mt-8 flex justify-center">
-                <button class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
+                <a href="{{ route('post.index') }}"
+                    class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
                     Browse All Articles
-                </button>
+                </a>
             </div>
         </main>
 
         <!-- Sidebar -->
-        <aside class="lg:w-1/3 space-y-8">
+        <x-frontend.sidebar />
+        {{-- <aside class="lg:w-1/3 space-y-8">
             <!-- About Widget -->
             <div class="bg-white p-6 rounded-lg shadow">
                 <h3 class="text-xl font-bold mb-4 text-gray-800">About The Blog</h3>
@@ -219,6 +236,6 @@
                     </button>
                 </form>
             </div>
-        </aside>
+        </aside> --}}
     </div>
 @endsection

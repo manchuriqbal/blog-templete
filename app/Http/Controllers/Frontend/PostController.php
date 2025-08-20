@@ -14,7 +14,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        view('frontend.post.show');
+        $posts = Post::orderBy("created_at","desc")->paginate(9);
+        return view('frontend.post.index')->with([
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -36,9 +39,24 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(string $slug )
     {
-        //
+        $post = Post::where('slug', $slug)->firstOrFail();
+
+        $relatedPost = Post::where(function ($query) use ($post) {
+            $query->where('category_id', $post->category_id)
+                  ->orWhere('user_id', $post->user_id);
+        })
+        ->where('id', '!=', $post->id)
+        ->inRandomOrder()
+        ->limit(4)   
+        ->get();
+        // dd($relatedPost);
+
+        return view('frontend.post.show')->with([
+            'post' => $post,
+            'relatedPost'=> $relatedPost
+        ]);
     }
 
     /**

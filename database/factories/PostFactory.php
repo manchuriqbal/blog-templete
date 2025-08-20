@@ -25,7 +25,7 @@ class PostFactory extends Factory
             "image" => "https://picsum.photos/640/480",
             "user_id" => \App\Models\User::inRandomOrder()->first()->id ?? 1,
             "category_id" => \App\Models\Category::inRandomOrder()->first()->id ?? 1,
-            
+            "featured" => $this->faker->boolean(20), 
         ];
     }
 }

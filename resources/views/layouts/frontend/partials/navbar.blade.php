@@ -15,49 +15,36 @@
                     Categories
                     <i class="fas fa-chevron-down ml-1 text-sm"></i>
                 </button>
+
                 <div class="absolute left-0 w-64 bg-white rounded-md shadow-lg hidden z-50 desktop-dropdown-menu">
                     <div class="py-2">
-                        <div class="relative desktop-dropdown-sub">
-                            <button
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition flex justify-between items-center w-full text-left">
-                                Web Development
-                                <i class="fas fa-chevron-right text-xs"></i>
-                            </button>
-                            <div
-                                class="absolute left-full top-0 mt-0 w-64 bg-white rounded-md shadow-lg hidden desktop-dropdown-submenu">
-                                <a href="#"
-                                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Frontend</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Backend</a>
-                                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Full
-                                    Stack</a>
+                        @foreach ($categories as $category)
+                            <div class="relative desktop-dropdown-sub">
+                                @if ($category->children->count() > 0)
+                                    <a href="#"
+                                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition flex justify-between items-center w-full text-left">
+                                        {{ucfirst($category->name)  }}
+                                        <i class="fas fa-chevron-right text-xs"></i>
+                                    </a>
+                                    <div
+                                        class="absolute left-full top-0 mt-0 w-64 bg-white rounded-md shadow-lg hidden desktop-dropdown-submenu">
+                                        @foreach ($category->children as $child)
+                                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
+                                                {{ucfirst($child->name)  }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
+                                        {{ucfirst($category->name)  }}
+                                    </a>
+                                @endif
                             </div>
-                        </div>
-                        <div class="relative desktop-dropdown-sub">
-                            <button
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition flex justify-between items-center w-full text-left">
-                                Artificial Intelligence
-                                <i class="fas fa-chevron-right text-xs"></i>
-                            </button>
-                            <div
-                                class="absolute left-full top-0 mt-0 w-64 bg-white rounded-md shadow-lg hidden desktop-dropdown-submenu">
-                                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Machine
-                                    Learning</a>
-                                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Deep
-                                    Learning</a>
-                                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">NLP</a>
-                            </div>
-                        </div>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Cloud
-                            Computing</a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Cybersecurity</a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">DevOps</a>
-                        <a href="{{ route('category.index') }}"
-                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
-                            All Categories</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
+            <a href="{{ route('post.index') }}" class="text-gray-600 hover:text-blue-600 transition">Posts</a>
             <a href="{{ route('about') }}" class="text-gray-600 hover:text-blue-600 transition">About</a>
             <a href="{{ route('contact') }}" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
         </nav>

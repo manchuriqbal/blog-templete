@@ -8,27 +8,34 @@
         <main class="lg:w-2/3">
             <article class="bg-white rounded-lg shadow-md overflow-hidden">
                 <!-- Featured Image -->
-                <img src="https://placehold.co/920x610/png" alt="Web Development" class="w-full h-64 md:h-96 object-cover">
+                @if (Str::startsWith($post->image, 'https://'))
+                    <img src="{{ $post->image }}" alt="{{ $post->title }}" class="w-full h-64 md:h-96 object-cover">
+                @else
+                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"
+                        class="w-full h-64 md:h-96 object-cover">
+                @endif
+
 
                 <!-- Article Header -->
                 <div class="p-6 md:p-8">
                     <div class="flex items-center text-sm text-gray-500 mb-4">
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">Web Development</span>
+                        <span
+                            class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">{{ $post->category->name }}</span>
                         <span class="mx-2">•</span>
-                        <span>May 15, 2023</span>
+                        <span>{{$post->created_at->diffForHumans()}}</span>
                         <span class="mx-2">•</span>
                         <span>5 min read</span>
                         <span class="mx-2">•</span>
                         <span><i class="fas fa-eye mr-1"></i> 1,248 views</span>
                     </div>
 
-                    <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">The Future of Web Development in 2023</h1>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">{{$post->title}}</h1>
 
                     <div class="flex items-center mb-8">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author"
                             class="w-10 h-10 rounded-full mr-3">
                         <div>
-                            <p class="font-medium text-gray-800">John Doe</p>
+                            <p class="font-medium text-gray-800">{{$post->user->name}}</p>
                             <p class="text-sm text-gray-500">Senior Web Developer</p>
                         </div>
                     </div>
@@ -36,11 +43,11 @@
 
                 <!-- Article Content -->
                 <div class="px-6 md:px-8 pb-8 prose max-w-none">
-                    <p class="text-gray-700 mb-5 text-lg leading-relaxed">The web development landscape is evolving at an
-                        unprecedented pace, with new technologies and methodologies emerging constantly. As we navigate
-                        through 2023, several key trends are shaping the future of how we build for the web.</p>
 
-                    <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-800">1. The Rise of WebAssembly</h2>
+                    <p class="text-gray-700 mb-5 text-lg leading-relaxed">{{$post->content}}</p>
+
+
+                    {{-- <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-800">1. The Rise of WebAssembly</h2>
 
                     <p class="text-gray-700 mb-5 leading-relaxed">WebAssembly (Wasm) continues to gain traction as a
                         game-changer for web performance. This binary instruction format allows code written in languages
@@ -75,13 +82,13 @@
 
                     <div class="bg-gray-900 text-gray-100 p-4 rounded-lg mb-5 overflow-x-auto">
                         <pre><code class="language-javascript">// Example serverless function
-            exports.handler = async (event) => {
-                const response = {
-                    statusCode: 200,
-                    body: JSON.stringify('Hello from Lambda!'),
-                };
-                return response;
-            };</code></pre>
+                                                                                        exports.handler = async (event) => {
+                                                                                            const response = {
+                                                                                                statusCode: 200,
+                                                                                                body: JSON.stringify('Hello from Lambda!'),
+                                                                                            };
+                                                                                            return response;
+                                                                                        };</code></pre>
                     </div>
 
                     <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-800">3. Jamstack Goes Mainstream</h2>
@@ -124,7 +131,7 @@
                     <p class="text-gray-700 mb-5 leading-relaxed">The future of web development in 2023 is about
                         performance, developer experience, and expanding what's possible on the web platform. By embracing
                         these trends while maintaining focus on core web principles, developers can build applications that
-                        are faster, more capable, and more maintainable than ever before.</p>
+                        are faster, more capable, and more maintainable than ever before.</p> --}}
                 </div>
 
                 <!-- Article Footer -->
@@ -266,20 +273,33 @@
                 <h3 class="text-2xl font-bold mb-6 text-gray-800">Related Articles</h3>
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Related 1 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                        <img src="https://placehold.co/920x610/png" alt="React 18" class="w-full h-40 object-cover">
-                        <div class="p-4">
-                            <div class="flex items-center text-sm text-gray-500 mb-2">
-                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">Web Development</span>
-                                <span class="mx-2">•</span>
-                                <span>May 22, 2023</span>
-                            </div>
-                            <h4 class="text-lg font-bold mb-2 text-gray-800">React 18: Concurrent Rendering Explained</h4>
-                            <a href="#" class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
-                        </div>
-                    </div>
+                    @if ($relatedPost->count() > 0)
+                        @foreach ($relatedPost as $post)
 
-                    <!-- Related 2 -->
+                            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                                @if (Str::startsWith($post->image, 'https://'))
+                                    <img src="{{ $post->image }}" alt="{{ $post->title }}" class="w-full h-40 object-cover">
+                                @else
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"
+                                        class="w-full h-40 object-cover">
+
+                                @endif
+                                <div class="p-4">
+                                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                                        <span
+                                            class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs">{{ $post->category->name }}</span>
+                                        <span class="mx-2">•</span>
+                                        <span>{{ $post->created_at->diffForHumans() }}</span>
+                                    </div>
+                                    <h4 class="text-lg font-bold mb-2 text-gray-800">{{ $post->title }}</h4>
+                                    <a href="{{ route('post.show', $post->slug) }}"
+                                        class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+
+                    {{-- <!-- Related 2 -->
                     <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
                         <img src="https://placehold.co/920x610/png" alt="Serverless" class="w-full h-40 object-cover">
                         <div class="p-4">
@@ -291,13 +311,14 @@
                             <h4 class="text-lg font-bold mb-2 text-gray-800">Serverless Architecture: Pros and Cons</h4>
                             <a href="#" class="text-blue-600 font-medium hover:text-blue-800 transition">Read More</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </main>
 
         <!-- Sidebar -->
-        <aside class="lg:w-1/3 space-y-8">
+        <x-frontend.sidebar />
+        {{-- <aside class="lg:w-1/3 space-y-8">
             <!-- About Widget -->
             <div class="bg-white p-6 rounded-lg shadow">
                 <h3 class="text-xl font-bold mb-4 text-gray-800">About The Blog</h3>
@@ -402,6 +423,6 @@
                         class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm hover:bg-gray-200 transition">#beginners</a>
                 </div>
             </div>
-        </aside>
+        </aside> --}}
     </div>
 @endsection

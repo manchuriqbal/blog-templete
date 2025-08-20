@@ -58,7 +58,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-500">
-                                {{ $post->content }}
+                                {{Str::limit($post->content, 120, '...') }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $post->user->name }}
