@@ -30,7 +30,7 @@ The project demonstrates **form handling, Eloquent relationships, validation, an
 ##  How to Run the Project
 
 1. Clone the repository:  
-   git clone https://github.com/your-username/blog-template.git  
+   git clone https://github.com/manchuriqbal/blog-template.git  
    cd blog-template  
 
 2. Install dependencies:  
